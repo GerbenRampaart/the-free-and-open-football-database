@@ -1,0 +1,23 @@
+{
+  "name": "the-free-and-open-football-database",
+  "version": "0.0.0",
+  "description": "The goal of the free and open football database is to collect (and keep up to date) all\r of the players, teams, competitions and tournament data in a easy data format (json).",
+  "main": "index.js",
+  "dependencies": {
+    "htmltidy": "^0.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GerbenRampaart/the-free-and-open-football-database.git"
+  },
+  "author": "GR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GerbenRampaart/the-free-and-open-football-database/issues"
+  },
+  "homepage": "https://github.com/GerbenRampaart/the-free-and-open-football-database"
+}

@@ -1,0 +1,20 @@
+{
+  "teams": [
+    {
+      "about": [
+        {
+          "culture": "en-US",
+          "short": "The Netherlands",
+          "long": "The Netherlands national football team",
+          "country": "The Netherlands"
+        },
+        {
+          "culture": "nl-NL",
+          "short": "Nederland",
+          "long": "Het Nederlands voetbalelftal",
+          "country": "Nederland"
+        }
+      ]
+    }
+  ]
+}

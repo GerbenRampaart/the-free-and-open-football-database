@@ -21,11 +21,11 @@
         "uri": "http://www.w3.org/1999/xhtml",
         "prefix": "ns"
     },
-    "current-squad-rows": [
+    "currentSquadRows": [
         {
-            "xpath": "/ns:html/ns:body/ns:div/ns:div/ns:div/ns:table[6]/ns:tbody/ns:tr/ns:td/ns:table",
+            "xpath": "/ns:html/ns:body/ns:div/ns:div/ns:div/ns:table[6]/ns:tbody/ns:tr/ns:td/ns:table/ns:tbody/ns:tr",
             "hasHeaderRow": true,
-            "column-order": [
+            "columns": [
                 {
                     "type": "number",
                     "field": "squadNumber",

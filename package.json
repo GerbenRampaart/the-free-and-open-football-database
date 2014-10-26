@@ -4,7 +4,8 @@
   "description": "The goal of the free and open football database is to collect (and keep up to date) all\r of the players, teams, competitions and tournament data in a easy data format (json).",
   "main": "index.js",
   "dependencies": {
-    "htmltidy": "^0.0.6"
+    "htmltidy": "^0.0.6",
+    "jquery": "^2.1.1"
   },
   "devDependencies": {},
   "scripts": {

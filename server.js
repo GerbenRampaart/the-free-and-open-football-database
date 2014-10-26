@@ -1,7 +1,7 @@
-var http = require('http');
+/*var http = require('http');
 var tidy = require('htmltidy').tidy;
 var xpath = require('xpath');
-var dom = require('xmldom').DOMParser;
+var dom = require('xmldom').DOMParser;*/
 var fs = require('fs');
 var async = require('async');
 
@@ -31,31 +31,28 @@ var log = function(log) {
     });
 };
 
-var str;
-function onDataChunckHandler() {
-    return function(chunck) {
-        str += chunck;
+var chunks = [];
+function onDataChunkHandler() {
+    return function(chunk) {
+        chunks.push(chunk);
     };
 }
 
 function onTidyReadyHandler(team) {
     return function(err, html){
-
-
-        html = html.replace(' xmlns="http://www.w3.org/1999/xhtml"', '');
-
-        console.log(html);
-
         console.info('tidied');
+        //html = html.replace(' xmlns=', '');
+        //html = html.replace('"http://www.w3.org/1999/xhtml"', '');
+        log(html);
         var doc = new dom().parseFromString(html);
         var nsObj = JSON.parse('{ "' + team.namespace.prefix + '": "' + team.namespace.uri +'" }');
         var select = xpath.useNamespaces(nsObj);
 
         for(var i = 0; i < team.currentSquadRows.length; i++) {
             var cur = team.currentSquadRows[i];
-
             var nodeList = select(cur.xpath, doc);
             console.log(nodeList.length + ' nodes found');
+            console.log(nodeList);
             var cols = cur.columns;
 
             for(var j = 0; j < nodeList.length; j++) {
@@ -74,11 +71,12 @@ function onTidyReadyHandler(team) {
 
 function onResponseEndHandler(team) {
     return function() {
-        console.info('response ended: ' + str.length + ' bytes');
+        var result = chunks.join(' ');
+        console.log('response ended: ' + result.length + ' bytes');
+        //str = str.replace(/\r?\&nbsp;\r/g, ' ');
+        //result = result.replace(/\r?\n|\r/g, ' ');
 
-        var rawHtml = str.slice(0);
-        rawHtml = rawHtml.replace(/\r?\n|\r/g, ' ');
-        console.log('replaced all line breaks with spaces. size is now: ' + rawHtml.length);
+        console.log('replaced all line breaks with spaces. size is now: ' + result.length);
 
         // I don't know why tidy has a problem with the &nbsp;
         // I keep getting the "entity not found:&nbsp;" message
@@ -89,17 +87,19 @@ function onResponseEndHandler(team) {
             indent: false,
             clean: true,
             doctype: 'omit',
-            quoteNbsp: false
+            quoteNbsp: false,
+            literalAttributes: true
         };
 
-        tidy(rawHtml, opts, onTidyReadyHandler(team));
+        tidy(result, opts, onTidyReadyHandler(team));
     };
 }
 
+
 function onDoingRequestHandler(team) {
     return function(res) {
-        str = '';
-        res.on('data', onDataChunckHandler());
+        chunks = [];
+        res.on('data', onDataChunkHandler());
         res.on('end', onResponseEndHandler(team));
     };
 }
@@ -118,8 +118,22 @@ for(var i = 0; i < teams.length; i++) {
     };
     
     console.info(team.dataUrl.host + team.dataUrl.path);
+
+    var YQL = require('yql');
+    var query = new YQL("select * from html where url='" +
+        team.dataUrl.host + team.dataUrl.path + "'" +
+        " and xpath='" + team.currentSquadRows[0].xpath + "'");
+    console.log(query);
+    query.exec(function (error, response) {
+        log(JSON.stringify(response));
+    });
+
+
     asyncTasks.push(
-        http.request(options, onDoingRequestHandler(team)).end()
+
+
+
+        //http.request(options, onDoingRequestHandler(team)).end()
     );
 };
 
@@ -141,7 +155,4 @@ async.series(
         console.info('written');    
     }
 );
-
-
-
 

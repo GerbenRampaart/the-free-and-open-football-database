@@ -23,46 +23,54 @@
     },
     "currentSquadRows": [
         {
-            "xpath": "/ns:html/ns:body/ns:div/ns:div/ns:div/ns:table[6]/ns:tbody/ns:tr/ns:td/ns:table/ns:tbody/ns:tr",
+        "xpath": "/html/body/div/div/div/table[6]/tr/td/table/tr",
             "hasHeaderRow": true,
+            "ignoreIfLowerThan": 10,
             "columns": [
                 {
                     "type": "number",
                     "field": "squadNumber",
-                    "xpath": "ns:tbody/ns:tr/ns:td[1]"
+                    "xpath": "tbody/tr/td[1]",
+                    "required": true
                 },
                 {
                     "type": "string",
                     "_comment": "GK, DF, MF or FW",
                     "field": "position",
-                    "xpath": "ns:tbody/ns:tr/ns:td[2]"
+                    "xpath": "tbody/tr/td[2]",
+                    "required": true
                 },
                 {
                     "type": "string",
                     "field": "fullName",
-                    "xpath": "ns:tbody/ns:tr/ns:td[3]"
+                    "xpath": "tbody/tr/td[3]",
+                    "required": true
                 },
                 {
                     "type": "date",
                     "field": "dateOfBirth",
-                    "xpath": "ns:tbody/ns:tr/ns:td[4]",
+                    "xpath": "tbody/tr/td[4]",
                     "regex": "/\\(([^)]+)\\)/",
-                    "format": "YYYY-MM-DD"
+                    "format": "YYYY-MM-DD",
+                    "required": false
                 },
                 {
                     "type": "number",
                     "field": "caps",
-                    "xpath": "ns:tbody/ns:tr/ns:td[5]"
+                    "xpath": "tbody/tr/td[5]",
+                    "required": false
                 },
                 {
                     "type": "number",
                     "field": "goals",
-                    "xpath": "ns:tbody/ns:tr/ns:td[6]"
+                    "xpath": "tbody/tr/td[6]",
+                    "required": false
                 },
                 {
                     "type": "string",
                     "field": "club",
-                    "xpath": "ns:tbody/ns:tr/ns:td[7]"
+                    "xpath": "tbody/tr/td[7]",
+                    "required": false
                 }
             ]
         }

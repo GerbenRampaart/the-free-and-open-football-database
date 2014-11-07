@@ -121,13 +121,30 @@ for(var i = 0; i < teams.length; i++) {
 
     var YQL = require('yql');
     var query = new YQL("select * from html where url='" +
-        team.dataUrl.host + team.dataUrl.path + "'" +
-        " and xpath='" + team.currentSquadRows[0].xpath + "'");
+        team.dataUrl.host + team.dataUrl.path + "'");
+    // + " and xpath='" + team.currentSquadRows[0].xpath + "'"
     console.log(query);
-    query.exec(function (error, response) {
-        log(JSON.stringify(response));
+
+    var select = require('js-select');
+
+    query.exec(function (error, result) {
+        console.log(error);
+log(JSON.stringify(result), undefined, 2);
+        console.log(result);
+        for(var i = 0; i < team.currentSquadRows[0].columns.length; i++) {
+            var node = select(result, '.td').nodes()[i];
+            var val = select(node, '.content').nodes()[i];
+            log(JSON.stringify(val));
+        }
     });
 
+    /*
+    select(query).forEach(function(node){
+       if(this.matches)
+    });
+
+
+     */
 
     asyncTasks.push(
 

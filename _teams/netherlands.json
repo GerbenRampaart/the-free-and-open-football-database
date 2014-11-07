@@ -23,7 +23,7 @@
     },
     "currentSquadRows": [
         {
-        "xpath": "/html/body/div/div/div/table[6]/tr/td/table/tr",
+            "xpath": "/html/body/div/div/div/table[6]/tr/td/table/tr",
             "hasHeaderRow": true,
             "ignoreIfLowerThan": 10,
             "columns": [
